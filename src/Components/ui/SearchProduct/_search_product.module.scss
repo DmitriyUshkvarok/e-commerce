@@ -1,0 +1,20 @@
+@import '../../../Sass/utils/variables.module';
+@import '../../../Sass/utils/mixins.module';
+
+.input_container input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid $orange-color;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color $transition ease;
+  -webkit-transition: border-color $transition ease;
+  -moz-transition: border-color $transition ease;
+  -ms-transition: border-color $transition ease;
+  -o-transition: border-color $transition ease;
+}
+
+.input_container input:focus {
+  border-color: $beige-color;
+}

@@ -1,0 +1,62 @@
+@import '../../Sass/utils/variables.module';
+@import '../../Sass/utils/mixins.module';
+
+.product_page_title {
+  margin-top: 20px;
+  margin-bottom: 70px;
+  text-align: center;
+}
+
+.product_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(33.333% - 20px), 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+
+  @include mediaQuery(768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product_list_item {
+  @include flexCenter();
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: $white-color;
+  border-radius: 10px;
+  @include boxShadow(0, 4px, 8px, 0, rgba(0, 0, 0, 0.2));
+  transition: transform $transition ease;
+  -webkit-transition: transform $transition ease;
+  -moz-transition: transform $transition ease;
+  -ms-transition: transform $transition ease;
+  -o-transition: transform $transition ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.product_list_link {
+  @include flexCenter();
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}
+
+.product_list_image {
+  border-radius: 8px;
+}
+
+.product_list_title {
+  text-align: center;
+}
+
+.product_list_price {
+  font-weight: bold;
+}
+
+.btn_order {
+  width: 100%;
+  margin-top: auto;
+}

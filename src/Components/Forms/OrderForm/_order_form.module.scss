@@ -1,0 +1,54 @@
+@import '../../../Sass/utils/variables.module';
+@import '../../../Sass/utils/mixins.module';
+
+.form_order {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.order_form_group {
+  margin-bottom: 20px;
+}
+
+.form_order_input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $beige-color;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.validation_error {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.registr_form_button {
+  background-color: $orange-color;
+  color: $white-color;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color $transition ease;
+  -webkit-transition: background-color $transition ease;
+  -moz-transition: background-color $transition ease;
+  -ms-transition: background-color $transition ease;
+  -o-transition: background-color $transition ease;
+
+  &:disabled {
+    background-color: gray;
+    cursor: none;
+  }
+
+  &:hover {
+    background-color: $beige-color;
+  }
+}

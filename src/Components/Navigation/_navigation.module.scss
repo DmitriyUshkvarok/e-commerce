@@ -1,0 +1,43 @@
+@import '../../Sass/utils/variables.module';
+@import '../../Sass/utils/mixins.module';
+
+.nav_list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo_link {
+  color: $orange-color;
+  font-weight: bold;
+  @include fontSizeAuto(16px, 24px);
+  margin-left: 10px;
+}
+
+.cart_link {
+  position: relative;
+  margin-right: 10px;
+}
+
+.cart_icon {
+  fill: $orange-color;
+  transform: scale(1.4);
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  -o-transform: scale(1.4);
+}
+
+.cart_count {
+  @include flexCenter();
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  padding: 3px;
+  border-radius: 50%;
+  color: $white-color;
+  background-color: $light-orange-color;
+  font-size: 10px;
+}

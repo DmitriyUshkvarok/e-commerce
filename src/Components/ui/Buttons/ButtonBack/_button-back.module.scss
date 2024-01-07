@@ -1,0 +1,32 @@
+@import '../../../../Sass/utils/variables.module';
+@import '../../../../Sass/utils/mixins.module';
+
+.btnBack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  background-color: $orange-color;
+  font-size: 16px;
+  border: none;
+  color: $white-color;
+  transition: transform $transition;
+  -webkit-transition: transform $transition;
+  -moz-transition: transform $transition;
+  -ms-transition: transform $transition;
+  -o-transition: transform $transition;
+  margin-left: 10px;
+}
+
+.btnBack:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}

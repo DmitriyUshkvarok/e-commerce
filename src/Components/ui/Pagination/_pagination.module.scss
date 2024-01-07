@@ -1,0 +1,67 @@
+@import '../../../Sass/utils/variables.module';
+@import '../../../Sass/utils/mixins.module';
+
+.pagination {
+  @include flexCenter();
+  margin-bottom: 30px;
+}
+
+.pagination_btn_prev {
+  margin-right: 5px;
+  border: 1px solid $orange-color;
+  padding: 3px;
+  color: $orange-color;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  background-color: transparent;
+
+  &:disabled {
+    background-color: gray;
+    color: $black-color;
+    cursor: none;
+    border: none;
+  }
+}
+
+.pagination_btn_next {
+  border: 1px solid $orange-color;
+  padding: 3px;
+  color: $orange-color;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  background-color: transparent;
+
+  &:disabled {
+    background-color: gray;
+    color: $black-color;
+    cursor: none;
+    border: none;
+  }
+}
+
+.pagination_btn_count {
+  @include flexCenter();
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 1px solid $orange-color;
+  padding: 3px;
+  color: $orange-color;
+  background-color: transparent;
+  margin-right: 5px;
+
+  &.active {
+    background-color: $light-orange-color;
+    color: $black-color;
+  }
+}

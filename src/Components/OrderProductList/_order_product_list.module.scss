@@ -1,0 +1,18 @@
+@import '../../Sass/utils/variables.module';
+@import '../../Sass/utils/mixins.module';
+
+.product_order_list {
+  @include flexCenter();
+  flex-direction: column;
+}
+
+.order_card {
+  box-sizing: border-box;
+  @include flexCenter();
+  flex-direction: column;
+  max-width: 800px;
+  width: 100%;
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 10px;
+}

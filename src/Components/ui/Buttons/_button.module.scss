@@ -1,0 +1,27 @@
+@import '../../../Sass/utils/variables.module';
+@import '../../../Sass/utils/mixins.module';
+
+.button {
+  height: 54px;
+  border-radius: 48px;
+  background-color: $orange-color;
+  padding: 0 16px;
+  font-size: 16px;
+  color: $white-color;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background-color $transition;
+  -webkit-transition: background-color $transition;
+  -moz-transition: background-color $transition;
+  -ms-transition: background-color $transition;
+  -o-transition: background-color $transition;
+}
+
+.button:hover {
+  background-color: $beige-color;
+}
+
+.button:active {
+  background-color: $light-orange-color;
+}

@@ -1,0 +1,37 @@
+@import '../../Sass/utils/variables.module';
+@import '../../Sass/utils/mixins.module';
+
+.sidebarContainer {
+  padding: 10px;
+  border: 1px solid $beige-color;
+  border-radius: 5px;
+}
+
+.sidebar_title {
+  margin-bottom: 30px;
+}
+
+.categoryList {
+  list-style: none;
+  padding: 0;
+}
+
+.categoryItem {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid $beige-color;
+  transition: background-color $transition ease;
+  -webkit-transition: background-color $transition ease;
+  -moz-transition: background-color $transition ease;
+  -ms-transition: background-color $transition ease;
+  -o-transition: background-color $transition ease;
+
+  &:hover {
+    background-color: $orange-color;
+  }
+}
+
+.selectedCategory {
+  background-color: $beige-color;
+  font-weight: bold;
+}

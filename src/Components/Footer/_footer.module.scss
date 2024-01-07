@@ -1,0 +1,8 @@
+@import '../../Sass/utils/variables.module';
+@import '../../Sass/utils/mixins.module';
+
+.footer {
+  background-color: $black-color;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}

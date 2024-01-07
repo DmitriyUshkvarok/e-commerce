@@ -1,0 +1,28 @@
+// mixin centr
+@mixin flexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+// mixin line height
+@mixin fontSizeAuto($fs, $lh) {
+  font-size: $fs;
+  line-height: calc($lh / $fs);
+}
+// mixin media query
+@mixin mediaQuery($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
+// mixin boxShadow
+@mixin boxShadow($x, $y, $blur, $spread, $color) {
+  box-shadow: $x $y $blur $spread $color;
+}
+
+:export {
+  flexCenter: #{mixinStr(flexCenter)};
+  fontSizeAuto: #{mixinStr(font)};
+  mediaQuery: #{mixinStr(mediaQuery)};
+  boxShadow: #{mixinStr(boxShadow)};
+}

@@ -1,0 +1,61 @@
+@import '../../Sass/utils/variables.module';
+@import '../../Sass/utils/mixins.module';
+
+.btn_back_wrapper {
+  margin-top: 15px;
+}
+
+.product_details_container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.product_image {
+  border-radius: 8px;
+}
+
+.product_title {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.product_category {
+  font-size: 16px;
+  color: gray;
+}
+
+.product_rating {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.product_description {
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.product_price {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.buy_button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: $orange-color;
+  color: $white-color;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  transition: background-color $transition ease;
+  -webkit-transition: background-color $transition ease;
+  -moz-transition: background-color $transition ease;
+  -ms-transition: background-color $transition ease;
+  -o-transition: background-color $transition ease;
+}
+
+.buy_button:hover {
+  background-color: $beige-color;
+}

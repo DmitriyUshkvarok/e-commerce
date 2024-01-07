@@ -1,0 +1,8 @@
+@import '../../Sass/utils/variables.module';
+@import '../../Sass/utils/mixins.module';
+
+.header {
+  background-color: $black-color;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
