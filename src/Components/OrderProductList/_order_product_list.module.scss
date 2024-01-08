@@ -1,6 +1,11 @@
 @import '../../Sass/utils/variables.module';
 @import '../../Sass/utils/mixins.module';
 
+.product_order_total_price {
+  text-align: center;
+  font-weight: bold;
+}
+
 .product_order_list {
   @include flexCenter();
   flex-direction: column;

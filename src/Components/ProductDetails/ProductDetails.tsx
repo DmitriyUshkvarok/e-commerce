@@ -1,5 +1,5 @@
 'use client';
-import { useGetProductByIdQuery } from '@/src/redux/productApi/productApi';
+import { useGetProductByIdQuery } from '@/src/redux/services/productApi/productApi';
 import { useAppDispatch, useAppSelector } from '@/src/hooks/redux-hook';
 import { addToCart } from '@/src/redux/cartSlice/cartSlice';
 import { ProductDetailsProps, CustomError, CartItem } from './types';

@@ -3,8 +3,8 @@ import persistedPaginationReducer from './paginationSlice/paginationSlice';
 import persisteQuantityReducer from './orderQantity/quantitySlice';
 import persistedCategoryReducer from './сategoriesSlice/categoriesSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import { productsApi } from './productApi/productApi';
-import { categoriesApi } from './categoriesApi/categoriesApi';
+import { productsApi } from './services/productApi/productApi';
+import { categoriesApi } from './services/categoriesApi/categoriesApi';
 import {
   persistStore,
   FLUSH,

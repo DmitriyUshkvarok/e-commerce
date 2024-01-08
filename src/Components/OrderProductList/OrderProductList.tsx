@@ -9,7 +9,9 @@ const OrderProductList = () => {
   const totalPrice = useAppSelector(cartSelector.geTotalPrice);
   return (
     <>
-      <div>Загальна вартість замовлення:{totalPrice} $.</div>
+      <div className={styles.product_order_total_price}>
+        Загальна вартість замовлення:{totalPrice} $.
+      </div>
       <ul className={styles.product_order_list}>
         {cartItems.map((item) => (
           <li key={item.id} className={styles.order_card}>

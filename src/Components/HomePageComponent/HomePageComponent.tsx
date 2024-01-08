@@ -2,7 +2,7 @@
 import styles from './_home_page_component.module.scss';
 import { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useGetProductsQuery } from '@/src/redux/productApi/productApi';
+import { useGetProductsQuery } from '@/src/redux/services/productApi/productApi';
 import { useAppDispatch, useAppSelector } from '@/src/hooks/redux-hook';
 import { CustomError, CartItem } from '../ProductList/types';
 import {
@@ -16,7 +16,7 @@ import {
 import {
   useGetProductsInCategoryQuery,
   useGetAllCategoriesQuery,
-} from '@/src/redux/categoriesApi/categoriesApi';
+} from '@/src/redux/services/categoriesApi/categoriesApi';
 import ProductList from '../ProductList/ProductList';
 import Pagination from '../ui/Pagination/Pagination';
 import ProductSearch from '../ui/SearchProduct/SearchProduct';

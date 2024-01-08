@@ -1,12 +1,12 @@
 import OrderForm from '@/src/Components/Forms/OrderForm/OrderForm';
 import OrderProductList from '@/src/Components/OrderProductList/OrderProductList';
-
-const OrderPage = () => {
+import Container from '@/src/Components/Container/Container';
+const OrderPage = async () => {
   return (
-    <div>
+    <Container>
       <OrderForm />
       <OrderProductList />
-    </div>
+    </Container>
   );
 };
 

@@ -6,6 +6,8 @@ import { removeAllFromCart } from '@/src/redux/cartSlice/cartSlice';
 import { clearAllQuantities } from '@/src/redux/orderQantity/quantitySlice';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { sendEmailOrder } from '@/src/actions/sendEmail';
+import { useState } from 'react';
 import styles from './_order_form.module.scss';
 import Button from '../../ui/Buttons/Button';
 import cartSelector from '@/src/redux/cartSlice/cartSelector';
@@ -23,23 +25,42 @@ const initialValues: FormValues = {
 };
 
 const OrderForm = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const cartItems = useAppSelector(cartSelector.getIsItems);
   const totalPrice = useAppSelector(cartSelector.geTotalPrice);
+  const quantity = useAppSelector((state) => state.quantity);
 
   const handleSubmit = async (values: FormValues) => {
     const orderData = {
       ...values,
       products: cartItems,
       totalPrice: totalPrice,
+      quantity: quantity,
     };
 
-    console.log('Order Data:', orderData);
-    dispatch(removeAllFromCart());
-    dispatch(clearAllQuantities());
-    toast.success('Ваше замовлення успішно розміщено!');
-    router.replace('/cart');
+    try {
+      setLoading(true);
+      const result = await sendEmailOrder(orderData);
+
+      if (result) {
+        console.log('Order Data:', orderData);
+        dispatch(removeAllFromCart());
+        dispatch(clearAllQuantities());
+        toast.success(
+          'Ваше замовлення успішно розміщено! на вашу електронну скриньку надіслано лист із деталями замовлення'
+        );
+        router.push('/');
+      } else {
+        toast.error('Помилка при відправленні замовлення. Спробуйте ще раз.');
+      }
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      toast.error('Помилка при відправленні замовлення. Спробуйте ще раз.');
+    } finally {
+      () => setLoading(false);
+    }
   };
 
   return (
@@ -104,7 +125,7 @@ const OrderForm = () => {
               type="submit"
               disabled={false}
             >
-              Замовити
+              {loading ? 'Loaging...' : 'Замовити'}
             </Button>
           </div>
         </Form>
