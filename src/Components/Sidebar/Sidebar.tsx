@@ -1,5 +1,6 @@
 'use client';
 import styles from './_sidebar.module.scss';
+import Loader from '../ui/Loader/Loader';
 
 interface SidebarProps {
   categories: string[];
@@ -24,7 +25,7 @@ const Sidebar = ({
     <div className={styles.sidebarContainer}>
       <h2 className={styles.sidebar_title}>Категорії</h2>
       {loading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
         <ul className={styles.categoryList}>
           <li

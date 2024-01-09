@@ -7,6 +7,7 @@ import Button from '../ui/Buttons/Button';
 import ButtonBack from '../ui/Buttons/ButtonBack/ButtonBack';
 import Image from 'next/image';
 import cartSelector from '@/src/redux/cartSlice/cartSelector';
+import Loader from '../ui/Loader/Loader';
 import styles from './_ProductDetails.module.scss';
 
 const ProductDetails = ({ productId }: ProductDetailsProps) => {
@@ -25,7 +26,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
   };
 
   if (!product) {
-    return <p>Product not found</p>;
+    return <>{isLoading ? <Loader /> : <p>Product not found</p>}</>;
   }
 
   return (
@@ -34,7 +35,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
         <ButtonBack />
       </div>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
         <div className={styles.product_details_container}>
           {customError?.status} {JSON.stringify(customError?.data)}

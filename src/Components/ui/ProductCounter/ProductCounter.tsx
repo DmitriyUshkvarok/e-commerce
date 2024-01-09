@@ -33,6 +33,7 @@ const QuantityCounter = ({ itemId }: QuantityCounterProps) => {
         -
       </button>
       <input
+        data-testid="quantity-input"
         className={styles.input_counter}
         type="text"
         value={quantity}

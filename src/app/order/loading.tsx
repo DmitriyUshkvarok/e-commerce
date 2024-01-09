@@ -1,5 +1,7 @@
+import Loader from '@/src/Components/ui/Loader/Loader';
+
 const LoadingOrder = () => {
-  return <div>Loading...</div>;
+  return <Loader />;
 };
 
 export default LoadingOrder;

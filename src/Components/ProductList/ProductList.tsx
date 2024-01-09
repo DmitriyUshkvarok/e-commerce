@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Button from '../ui/Buttons/Button';
 import Link from 'next/link';
 import cartSelector from '@/src/redux/cartSlice/cartSelector';
+import Loader from '../ui/Loader/Loader';
 
 const ProductList = ({
   currentPage,
@@ -37,7 +38,7 @@ const ProductList = ({
       <h1 className={styles.product_page_title}>Product List</h1>
       {customError?.status} {JSON.stringify(customError?.data)}
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
         <ul className={styles.product_list}>
           {currentProducts.map((product: CartItem) => (

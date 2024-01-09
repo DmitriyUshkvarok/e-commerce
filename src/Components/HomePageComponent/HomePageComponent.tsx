@@ -21,6 +21,7 @@ import ProductList from '../ProductList/ProductList';
 import Pagination from '../ui/Pagination/Pagination';
 import ProductSearch from '../ui/SearchProduct/SearchProduct';
 import Sidebar from '../Sidebar/Sidebar';
+import Loader from '../ui/Loader/Loader';
 
 const HomePageComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,8 +41,11 @@ const HomePageComponent = () => {
     error: categoriesError,
   } = useGetAllCategoriesQuery({});
 
-  const { data: productsInCategory, error: productsInCategoryError } =
-    useGetProductsInCategoryQuery(selectedCategory || '');
+  const {
+    data: productsInCategory,
+    error: productsInCategoryError,
+    isLoading: productsInCategoryLoading,
+  } = useGetProductsInCategoryQuery(selectedCategory || '');
 
   const customError = productsInCategoryError as CustomError | undefined;
 
@@ -77,44 +81,58 @@ const HomePageComponent = () => {
         );
 
   return (
-    <>
+    <div>
       {customError?.status}
       {JSON.stringify(customError?.data)}
-      <div className={styles.product_search}>
-        <ProductSearch onSearch={handleSearch} />
-      </div>
-      <div className={styles.container}>
-        <div className={styles.sidebar}>
-          <Sidebar
-            categories={allCategories || []}
-            loading={categoriesLoading}
-            selectedCategory={selectedCategory}
-            error={categoriesError}
-            onCategoryClick={handleCategoryClick}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className={styles.product_search}>
+            <ProductSearch onSearch={handleSearch} />
+          </div>
+          <div className={styles.container}>
+            {categoriesLoading ? (
+              <Loader />
+            ) : (
+              <div className={styles.sidebar}>
+                <Sidebar
+                  categories={allCategories || []}
+                  loading={categoriesLoading}
+                  selectedCategory={selectedCategory}
+                  error={categoriesError}
+                  onCategoryClick={handleCategoryClick}
+                />
+              </div>
+            )}
+            <div className={styles.content}>
+              {filteredProducts && filteredProducts.length > 0 ? (
+                <ProductList
+                  currentPage={currentPage}
+                  data={filteredProducts}
+                  error={error as CustomError}
+                  isLoading={isLoading}
+                />
+              ) : (
+                <div className={styles.not_products}>
+                  {productsInCategoryLoading ? (
+                    <Loader />
+                  ) : (
+                    'Відповідних товарів не знайдено'
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+          <Pagination
+            totalItems={filteredProducts?.length || 0}
+            itemsPerPage={6}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
           />
-        </div>
-        <div className={styles.content}>
-          {filteredProducts && filteredProducts.length > 0 ? (
-            <ProductList
-              currentPage={currentPage}
-              data={filteredProducts}
-              error={error as CustomError}
-              isLoading={isLoading}
-            />
-          ) : (
-            <p className={styles.not_products}>
-              Відповідних товарів не знайдено.
-            </p>
-          )}
-        </div>
-      </div>
-      <Pagination
-        totalItems={filteredProducts?.length || 0}
-        itemsPerPage={6}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
-    </>
+        </>
+      )}
+    </div>
   );
 };
 
