@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 interface QuantityState {
-  [itemId: string]: number;
+  [itemId: number]: number;
 }
 
 const quantityPersistConfig = {
@@ -39,6 +39,11 @@ const quantitySlice = createSlice({
   },
 });
 
+const persisteQuantityReducer = persistReducer(
+  quantityPersistConfig,
+  quantitySlice.reducer
+);
+
 export const {
   incrementQuantity,
   decrementQuantity,
@@ -46,10 +51,5 @@ export const {
   setQuantityById,
   clearAllQuantities,
 } = quantitySlice.actions;
-
-const persisteQuantityReducer = persistReducer(
-  quantityPersistConfig,
-  quantitySlice.reducer
-);
 
 export default persisteQuantityReducer;

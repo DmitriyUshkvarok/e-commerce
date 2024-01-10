@@ -31,6 +31,7 @@ const Pagination = ({
         className={styles.pagination_btn_prev}
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
+        data-testid="previous-button"
       >
         Previous
       </button>
@@ -41,6 +42,7 @@ const Pagination = ({
             index + 1 === currentPage ? styles.active : ''
           }`}
           onClick={() => handlePageChange(index + 1)}
+          data-testid={`page-${index + 1}`}
         >
           {index + 1}
         </button>
@@ -49,6 +51,7 @@ const Pagination = ({
         className={styles.pagination_btn_next}
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
+        data-testid="next-button"
       >
         Next
       </button>
