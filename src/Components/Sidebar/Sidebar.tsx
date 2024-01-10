@@ -46,6 +46,7 @@ const Sidebar = ({
               className={`${styles.categoryItem} ${
                 selectedCategory === category && styles.selectedCategory
               }`}
+              data-testid={`category-item-${category}`}
             >
               {category}
             </li>

@@ -4,7 +4,7 @@ import styles from './_loader.module.scss';
 
 const Loader = () => {
   return (
-    <div className={styles.loaderWrapper}>
+    <div className={styles.loaderWrapper} data-testid="loader">
       <RotatingLines
         visible={true}
         width="50"
