@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.15.0' # Укажите вашу версию Node.js
+
+      - name: Install dependencies
+        run: npm install # или `yarn install` если используете Yarn
+
+      - name: Build project
+        run: npm run build # или `yarn build` если используете Yarn
+
+      - name: Run SonarCloud analysis
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          organization: ${{ secrets.SONAR_ORGANIZATION }}
+          token: ${{ secrets.REMOVED }}
+          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+
+      - name: Run tests
+        run: npm test # или `yarn test` если используете Yarn

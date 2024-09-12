@@ -2,7 +2,7 @@ import ProductDetails from '@/src/Components/ProductDetails/ProductDetails';
 
 interface DynamicProductPageProps {
   params: {
-    id: string;
+    id: number;
   };
 }
 

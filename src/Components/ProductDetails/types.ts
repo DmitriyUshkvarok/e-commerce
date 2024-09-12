@@ -1,5 +1,5 @@
 export interface ProductDetailsProps {
-  productId: string;
+  productId: number;
 }
 
 export interface CartItem {
