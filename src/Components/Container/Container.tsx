@@ -5,6 +5,12 @@ const Container = ({ children }: RootLayoutProps) => {
   // const beer = () => {
   //   return 1;
   // };
+  function emptyFunction() {
+    // Функция ничего не делает
+  }
+  if (true) {
+    // Пустой блок кода
+  }
 
   return (
     <>
