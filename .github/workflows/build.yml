@@ -52,5 +52,3 @@ jobs:
         env:
           REMOVED: ${{ secrets.REMOVED }}
           REMOVED: ${{ secrets.REMOVED }}
-        with:
-          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
