@@ -1,25 +1,4 @@
-# name: Build
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     types: [opened, synchronize, reopened]
-# jobs:
-#   sonarcloud:
-#     name: SonarCloud
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-#       - name: SonarCloud Scan
-#         uses: SonarSource/sonarcloud-github-action@master
-#         env:
-#           REMOVED: ${{ secrets.REMOVED }} # Needed to get PR information, if any
-#           REMOVED: ${{ secrets.REMOVED }}
-
-name: Build
+name: Build and SonarCloud Analysis
 
 on:
   push:
@@ -29,16 +8,29 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  sonarcloud:
-    name: SonarCloud
+  build_and_analyze:
+    name: Build and SonarCloud Analysis
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Ensure the full history is available
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.15.0'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run SonarCloud Analysis
+        uses: SonarSource/sonarcloud-github-action@v2
         env:
           REMOVED: ${{ secrets.REMOVED }} # Needed to get PR information, if any
           REMOVED: ${{ secrets.REMOVED }}
@@ -47,13 +39,21 @@ jobs:
         id: wait_quality_gate
         run: |
           echo "Waiting for Quality Gate analysis to finish..."
-          sleep 30 # Delay to ensure SonarCloud has time to process the analysis
-          result=$(curl -s -u $REMOVED: \
+          sleep 60 # Wait for 60 seconds; adjust as necessary
+
+          # Request Quality Gate status
+          response=$(curl -s -u $REMOVED: \
             "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${{ secrets.SONAR_PROJECT_KEY }}")
-          status=$(echo $result | jq -r '.projectStatus.status')
+
+          # Output response for debugging
+          echo "Response from SonarCloud API: $response"
+
+          # Check Quality Gate status
+          status=$(echo $response | grep -oP '"status":"\K[^"]+')
+          echo "Quality Gate status: $status"
 
           if [ "$status" != "OK" ]; then
-            echo "Quality Gate failed: $result"
+            echo "Quality Gate failed: $response"
             exit 1
           else
             echo "Quality Gate passed"
