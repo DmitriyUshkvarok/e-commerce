@@ -19,7 +19,7 @@
 #           REMOVED: ${{ secrets.REMOVED }} # Needed to get PR information, if any
 #           REMOVED: ${{ secrets.REMOVED }}
 
-name: Build
+name: Build and Deploy
 on:
   push:
     branches:
@@ -28,24 +28,38 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   sonarcloud:
-    name: SonarCloud
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
     steps:
+      # Шаг для клонирования репозитория
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Отключаем shallow clones для лучшего анализа
 
+      # Шаг анализа с SonarCloud
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          REMOVED: ${{ secrets.REMOVED }} # Needed to get PR information, if any
+          REMOVED: ${{ secrets.REMOVED }} # Для получения информации о PR
           REMOVED: ${{ secrets.REMOVED }}
 
-      # Добавляем шаг для проверки статуса Quality Gate
-      - name: Check Quality Gate status
+      # Шаг проверки Quality Gate
+      - name: Check SonarCloud Quality Gate
         run: |
+          # Запрос статуса Quality Gate через API SonarCloud
           QUALITY_GATE_STATUS=$(curl -s -u ${{ secrets.REMOVED }} "https://sonarcloud.io/api/qualitygates/project_status?projectKey=DmitriyUshkvarok_e-commerce" | jq -r .projectStatus.status)
+
+          # Если статус не OK, завершаем сборку с ошибкой
           if [ "$QUALITY_GATE_STATUS" != "OK" ]; then
-            echo "Quality Gate failed: $QUALITY_GATE_STATUS"
+            echo "Quality Gate failed with status: $QUALITY_GATE_STATUS"
             exit 1
           fi
+
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: sonarcloud
+    steps:
+      - name: Deploy
+        run: |
+          echo "Deploying to production..."
