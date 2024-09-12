@@ -44,7 +44,7 @@ jobs:
       # Добавляем шаг для проверки статуса Quality Gate
       - name: Check Quality Gate status
         run: |
-          QUALITY_GATE_STATUS=$(curl -s -u ${{ secrets.REMOVED }} "https://sonarcloud.io/api/qualitygates/project_status?projectKey=<your_project_key>" | jq -r .projectStatus.status)
+          QUALITY_GATE_STATUS=$(curl -s -u ${{ secrets.REMOVED }} "https://sonarcloud.io/api/qualitygates/project_status?projectKey=DmitriyUshkvarok_e-commerce" | jq -r .projectStatus.status)
           if [ "$QUALITY_GATE_STATUS" != "OK" ]; then
             echo "Quality Gate failed: $QUALITY_GATE_STATUS"
             exit 1
