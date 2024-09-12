@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # Укажите версию Node.js, которая используется в вашем проекте
+          node-version: '20.15.0' # Укажите версию Node.js, которая используется в вашем проекте
 
       - name: Install dependencies
         run: npm install
