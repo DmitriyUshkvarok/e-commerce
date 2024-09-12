@@ -35,3 +35,5 @@ jobs:
           projectBaseDir: .
         env:
           REMOVED: ${{ secrets.REMOVED }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
