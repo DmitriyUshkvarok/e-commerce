@@ -26,7 +26,6 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
-
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -37,46 +36,16 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1
+        uses: SonarSource/sonarcloud-github-action@master
         env:
-          REMOVED: ${{ secrets.REMOVED }}
+          REMOVED: ${{ secrets.REMOVED }} # Needed to get PR information, if any
           REMOVED: ${{ secrets.REMOVED }}
 
-      - name: Create report-task.txt
+      # Добавляем шаг для проверки статуса Quality Gate
+      - name: Check Quality Gate status
         run: |
-          # This assumes that the scanner creates the file in the .scannerwork directory
-          if [ ! -f .scannerwork/report-task.txt ]; then
-            echo "The report-task.txt file does not exist. Skipping Quality Gate check."
+          QUALITY_GATE_STATUS=$(curl -s -u ${{ secrets.REMOVED }} "https://sonarcloud.io/api/qualitygates/project_status?projectKey=<your_project_key>" | jq -r .projectStatus.status)
+          if [ "$QUALITY_GATE_STATUS" != "OK" ]; then
+            echo "Quality Gate failed: $QUALITY_GATE_STATUS"
             exit 1
           fi
-
-  quality_gate:
-    name: Check SonarCloud Quality Gate
-    runs-on: ubuntu-latest
-    needs: sonarcloud
-    steps:
-      - name: Wait for SonarCloud analysis to complete
-        run: |
-          echo "Waiting for SonarCloud analysis to complete..."
-          sleep 30 # Adjust this if needed
-
-      - name: Check Quality Gate Status
-        id: check_quality_gate
-        run: |
-          if [ ! -f .scannerwork/report-task.txt ]; then
-            echo "The report-task.txt file does not exist."
-            exit 1
-          fi
-
-          response=$(curl -s -X GET "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${{ secrets.SONAR_PROJECT_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.REMOVED }}")
-          status=$(echo "$response" | jq -r '.projectStatus.status')
-
-          if [ "$status" != "OK" ]; then
-            echo "Quality Gate failed. Status: $status"
-            exit 1
-          else
-            echo "Quality Gate passed. Status: $status"
-          fi
-        env:
-          REMOVED: ${{ secrets.REMOVED }}
