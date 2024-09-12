@@ -14,7 +14,6 @@ const Container = ({ children }: RootLayoutProps) => {
 
   return (
     <>
-      {/* лл */}
       <div></div>
       <div className={styles.container}>{children}</div>
     </>
