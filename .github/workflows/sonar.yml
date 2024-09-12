@@ -1,4 +1,4 @@
-name: CI
+name: SonarCloud
 
 on:
   push:
@@ -9,31 +9,29 @@ on:
       - main
 
 jobs:
-  build:
-    name: Build and Analyze
+  sonarcloud:
+    name: SonarCloud Scan
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Рекомендуется для лучшей точности анализа
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.15.0' # Укажите вашу версию Node.js
+          node-version: '16' # Укажите версию Node.js, которая используется в вашем проекте
 
       - name: Install dependencies
-        run: npm install # или `yarn install` если используете Yarn
+        run: npm install
 
       - name: Build project
-        run: npm run build # или `yarn build` если используете Yarn
+        run: npm run build
 
-      - name: Run SonarCloud analysis
+      - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-          organization: ${{ secrets.SONAR_ORGANIZATION }}
-          token: ${{ secrets.REMOVED }}
-          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
-
-      - name: Run tests
-        run: npm test # или `yarn test` если используете Yarn
+          projectBaseDir: .
+        env:
+          REMOVED: ${{ secrets.REMOVED }}
