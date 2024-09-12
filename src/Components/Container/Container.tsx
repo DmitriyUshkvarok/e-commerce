@@ -8,9 +8,6 @@ const Container = ({ children }: RootLayoutProps) => {
   function emptyFunction() {
     // Функция ничего не делает
   }
-  if (true) {
-    // Пустой блок кода
-  }
 
   return (
     <>
