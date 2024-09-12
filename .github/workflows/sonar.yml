@@ -1,38 +1,62 @@
-name: SonarCloud
+# name: SonarCloud
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   sonarcloud:
+#     name: SonarCloud Scan
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0 # Рекомендуется для лучшей точности анализа
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '20.15.0' # Укажите версию Node.js, которая используется в вашем проекте
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Build project
+#         run: npm run build
+
+#       - name: SonarCloud Scan
+#         uses: sonarsource/sonarcloud-github-action@v2
+#         with:
+#           projectBaseDir: .
+#         env:
+#           REMOVED: ${{ secrets.REMOVED }}
+#           SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+#           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
 
 on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request.
   push:
     branches:
       - main
   pull_request:
-    branches:
-      - main
-
+    types: [opened, synchronize, reopened]
+name: Main Workflow
 jobs:
   sonarcloud:
-    name: SonarCloud Scan
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Рекомендуется для лучшей точности анализа
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.15.0' # Укажите версию Node.js, которая используется в вашем проекте
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: .
+        uses: sonarsource/sonarcloud-github-action@v2.1.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
         env:
           REMOVED: ${{ secrets.REMOVED }}
           SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
