@@ -39,7 +39,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          REMOVED: ${{ secrets.REMOVED }}
+          REMOVED: ${{ secrets.REMOVED }} # Needed to get PR information, if any
           REMOVED: ${{ secrets.REMOVED }}
 
   quality_gate:
@@ -47,23 +47,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: sonarcloud
     steps:
-      - name: Wait for SonarCloud Analysis
-        run: |
-          echo "Waiting for SonarCloud analysis to complete..."
-          sleep 30 # Increase if needed, depending on your analysis duration
-
-      - name: Check Quality Gate Status
-        id: check_quality_gate
-        run: |
-          response=$(curl -s -X GET "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${{ secrets.SONAR_PROJECT_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.REMOVED }}")
-          status=$(echo "$response" | jq -r '.projectStatus.status')
-
-          if [ "$status" != "OK" ]; then
-            echo "Quality Gate failed. Status: $status"
-            exit 1
-          else
-            echo "Quality Gate passed. Status: $status"
-          fi
+      - name: Check Quality Gate
+        uses: sonarsource/sonarqube-quality-gate-action@master
         env:
           REMOVED: ${{ secrets.REMOVED }}
+          REMOVED: ${{ secrets.REMOVED }}
+        with:
+          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
