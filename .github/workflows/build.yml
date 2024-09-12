@@ -21,7 +21,7 @@ jobs:
           SONAR_HOST_URL: https://sonarcloud.io
 
       - name: SonarQube Quality Gate check
-        uses: sonarsource/sonarqube-quality-gate-action@master
+        uses: SonarSource/sonarcloud-github-action@master
         timeout-minutes: 3
         env:
           REMOVED: 7a0e897986e8021c8355e5db862c84e1ce726bda
