@@ -8,7 +8,7 @@ const Container = ({ children }: RootLayoutProps) => {
   function emptyFunction() {
     // Функция ничего не делает
   }
-
+  let qwe = 2;
   return (
     <>
       <div></div>
