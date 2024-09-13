@@ -57,7 +57,7 @@ jobs:
       - name: Check SonarCloud Quality Gate
         run: |
           # Получаем статус Quality Gate через API
-          QUALITY_GATE_STATUS=$(curl -s -u ${{ secrets.REMOVED }} "https://sonarcloud.io/api/qualitygates/project_status?projectKey=DmitriyUshkvarok_e-commerce" | jq -r .projectStatus.status)
+          QUALITY_GATE_STATUS=$(curl -s -u ${{ secrets.REMOVED }} "https://sonarcloud.io/project/issues?issueStatuses=OPEN%2CCONFIRMED&id=DmitriyUshkvarok_e-commerce" | jq -r .projectStatus.status)
 
           # Проверяем статус
           if [ "$QUALITY_GATE_STATUS" != "OK" ]; then
