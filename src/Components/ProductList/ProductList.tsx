@@ -2,7 +2,7 @@
 import styles from './_productList.module.scss';
 import { useAppDispatch, useAppSelector } from '@/src/hooks/redux-hook';
 import { addToCart } from '@/src/redux/cartSlice/cartSlice';
-import { CartItem, CustomError, ProductListProps } from './types';
+import { CartItem, ProductListProps } from './types';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Button from '../ui/Buttons/Button';
