@@ -6,7 +6,7 @@ const Container = ({ children }: RootLayoutProps) => {
 // не валидный код
   if (1 + 1) {
   }
-  const qwe = 1;
+
   return <div className={styles.container}>{children}</div>;
 };
 
