@@ -59,7 +59,7 @@ const OrderForm = () => {
       console.error('Error submitting order:', error);
       toast.error('Помилка при відправленні замовлення. Спробуйте ще раз.');
     } finally {
-      () => setLoading(false);
+      setLoading(false);
     }
   };
 
