@@ -26,8 +26,7 @@
 #         env:
 #           REMOVED: 7a0e897986e8021c8355e5db862c84e1ce726bda
 #           SONAR_HOST_URL: https://sonarcloud.io
-
-name: Build and Deploy
+name: Build
 on:
   push:
     branches:
@@ -37,38 +36,32 @@ on:
 
 jobs:
   sonarcloud:
-    name: SonarCloud Analysis
+    name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      # Шаг клонирования репозитория
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Отключаем shallow clones для лучшего анализа
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-      # Запуск анализа SonarCloud
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          REMOVED: ${{ secrets.REMOVED }} # Для получения информации о PR
           REMOVED: ${{ secrets.REMOVED }}
-          SONAR_HOST_URL: https://sonarcloud.io # URL SonarCloud
+          REMOVED: ${{ secrets.REMOVED }}
+          SONAR_HOST_URL: https://sonarcloud.io
 
-      # Проверка Quality Gate через SonarCloud API
-      - name: Check SonarCloud Quality Gate
-        run: |
-          # Получаем статус Quality Gate через API
-          QUALITY_GATE_STATUS=$(curl -s -u ${{ secrets.REMOVED }} "https://sonarcloud.io/project/issues?issueStatuses=OPEN%2CCONFIRMED&id=DmitriyUshkvarok_e-commerce" | jq -r .projectStatus.status)
-
-          # Проверяем статус
-          if [ "$QUALITY_GATE_STATUS" != "OK" ]; then
-            echo "Quality Gate failed with status: $QUALITY_GATE_STATUS"
-            exit 1 # Завершаем сборку с ошибкой, если статус не OK
-          fi
+      - name: SonarQube Quality Gate check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 3
+        env:
+          REMOVED: ${{ secrets.REMOVED }}
+          SONAR_HOST_URL: https://sonarcloud.io
 
   deploy:
     name: Deploy to Production
     runs-on: ubuntu-latest
     needs: sonarcloud
+    if: success() # This ensures that deploy runs only if sonarcloud job is successful
     steps:
       - name: Deploy
         run: |
