@@ -18,7 +18,7 @@ export interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-//пример как работает сонар 
+
 export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
   return (
     <html lang="en">
