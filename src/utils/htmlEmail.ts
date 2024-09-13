@@ -8,7 +8,7 @@ export function orderConfirmationHtml({
 }: {
   orderDetails: OrderDetails;
 }) {
-  const orderItemsHtml = ((orderDetails && orderDetails?.products) || [])
+  const orderItemsHtml = (orderDetails?.products ?? [])
     .map((item) => {
       return `
         <p>${item?.title} - ${item?.price} грн</p>
@@ -21,6 +21,6 @@ export function orderConfirmationHtml({
     <p>Дякуємо за ваше замовлення!</p>
     <p>Деталі замовлення:</p>
      <div>${orderItemsHtml}</div>
-    <p>Загальна вартість: ${orderDetails && orderDetails?.totalPrice} грн</p>
+    <p>Загальна вартість: ${orderDetails?.totalPrice ?? 'Не доступно'} грн</p>
   `;
 }

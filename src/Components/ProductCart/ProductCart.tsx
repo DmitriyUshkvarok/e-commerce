@@ -1,10 +1,12 @@
 'use client';
 import { useAppDispatch, useAppSelector } from '@/src/hooks/redux-hook';
 import { useRouter } from 'next/navigation';
-import { removeFromCart } from '@/src/redux/cartSlice/cartSlice';
 import { clearQuantityById } from '@/src/redux/orderQantity/quantitySlice';
 import { toast } from 'react-toastify';
-import { updateTotalPrice } from '@/src/redux/cartSlice/cartSlice';
+import {
+  updateTotalPrice,
+  removeFromCart,
+} from '@/src/redux/cartSlice/cartSlice';
 import { useEffect } from 'react';
 import cartSelector from '@/src/redux/cartSlice/cartSelector';
 import styles from './_product-cart.module.scss';
@@ -44,9 +46,7 @@ const ProductCart = () => {
         <ButtonBack />
       </div>
       {cartItems.length === 0 ? (
-        <>
-          <p className={styles.empty_cart_message}>Кошик порожній</p>
-        </>
+        <p className={styles.empty_cart_message}>Кошик порожній</p>
       ) : (
         <>
           <div>Загальна вартість замовлення:{totalPrice} $.</div>
