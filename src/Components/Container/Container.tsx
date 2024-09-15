@@ -9,6 +9,8 @@ const Container = ({ children }: RootLayoutProps) => {
   }
 
   function fu() {}
+
+  fetch(`https://qwe?${API_KEY}`);
   return <div className={styles.container}>{children}</div>;
 };
 
