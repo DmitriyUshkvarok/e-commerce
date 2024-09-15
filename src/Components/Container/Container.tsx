@@ -3,12 +3,9 @@ import { RootLayoutProps } from '@/src/app/layout';
 
 const Container = ({ children }: RootLayoutProps) => {
   const config = {
-    API_KEY: '1234567890abcdef', // Это секретный ключ
+    API_KEY: 'super-secret-key-12345',
     // другие конфигурационные параметры
   };
-
-
-  function fu() {}
 
   fetch(`https://qwe?${config.API_KEY}`);
   return <div className={styles.container}>{children}</div>;
