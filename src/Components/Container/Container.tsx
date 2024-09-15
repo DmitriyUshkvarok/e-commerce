@@ -7,7 +7,6 @@ const Container = ({ children }: RootLayoutProps) => {
     // другие конфигурационные параметры
   };
 
-  //  убираем ошибки для успешного деплоя
 
   function fu() {}
 
