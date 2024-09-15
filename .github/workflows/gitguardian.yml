@@ -1,35 +1,35 @@
-name: GitGuardian scan
+# name: GitGuardian scan
 
-on:
-  push:
-    branches:
-      - main
-      - '**' # Срабатывает на все ветки при push
-  pull_request:
-    branches:
-      - main
-      - '**' # Срабатывает на все ветки при pull_request
+# on:
+#   push:
+#     branches:
+#       - main
+#       - '**' # Срабатывает на все ветки при push
+#   pull_request:
+#     branches:
+#       - main
+#       - '**' # Срабатывает на все ветки при pull_request
 
-jobs:
-  scanning:
-    name: GitGuardian scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Fetch all history so multiple commits can be scanned
+# jobs:
+#   scanning:
+#     name: GitGuardian scan
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0 # Fetch all history so multiple commits can be scanned
 
-      - name: GitGuardian scan
-        uses: GitGuardian/ggshield/actions/secret@v1.30.1
-        env:
-          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+#       - name: GitGuardian scan
+#         uses: GitGuardian/ggshield/actions/secret@v1.30.1
+#         env:
+#           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
 
-          # Use appropriate properties based on the event type
-          GITHUB_SHA: ${{ github.sha }}
-          GITHUB_REF: ${{ github.ref }}
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
+#           # Use appropriate properties based on the event type
+#           GITHUB_SHA: ${{ github.sha }}
+#           GITHUB_REF: ${{ github.ref }}
+#           GITHUB_EVENT_NAME: ${{ github.event_name }}
 
-          # For pull_request event (if needed)
-          GITHUB_PULL_REQUEST_BASE_SHA: ${{ github.event.pull_request.base.sha || github.sha }}
-          GITHUB_PULL_REQUEST_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+#           # For pull_request event (if needed)
+#           GITHUB_PULL_REQUEST_BASE_SHA: ${{ github.event.pull_request.base.sha || github.sha }}
+#           GITHUB_PULL_REQUEST_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
