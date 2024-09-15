@@ -4,7 +4,6 @@ import { RootLayoutProps } from '@/src/app/layout';
 const Container = ({ children }: RootLayoutProps) => {
   const config = {
     API_KEY: 'super-secret-key-12345',
-    // другие конфигурационные параметры
   };
 
   fetch(`https://qwe?${config.API_KEY}`);
