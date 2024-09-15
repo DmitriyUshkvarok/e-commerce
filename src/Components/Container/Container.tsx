@@ -2,15 +2,16 @@ import styles from './_container.module.scss';
 import { RootLayoutProps } from '@/src/app/layout';
 
 const Container = ({ children }: RootLayoutProps) => {
-  //  убираем ошибки для успешного деплоя
-  const API_KEY = '1234567789qwe';
+  const config = {
+    API_KEY: '1234567890abcdef', // Это секретный ключ
+    // другие конфигурационные параметры
+  };
 
-  if (API_KEY) {
-  }
+  //  убираем ошибки для успешного деплоя
 
   function fu() {}
 
-  fetch(`https://qwe?${API_KEY}`);
+  fetch(`https://qwe?${config.API_KEY}`);
   return <div className={styles.container}>{children}</div>;
 };
 
